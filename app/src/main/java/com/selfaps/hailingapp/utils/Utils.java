@@ -60,14 +60,14 @@ public class Utils {
         return sort(stations.toArray());
     }
 
-    public static Stations[] updateData(Stations[] stations) {
-
-        for (int i = 0; i < stations.length ; i++) {
-            stations[i].setEta(getRandomTime());
-        }
-
-        return stations;
-    }
+//    public static Stations[] updateData(Stations[] stations) {
+//
+//        for (int i = 0; i < stations.length ; i++) {
+//            stations[i].setEta(getRandomTime());
+//        }
+//
+//        return stations;
+//    }
 
 
     private static Stations[] sort(@NonNull Object[] array) {

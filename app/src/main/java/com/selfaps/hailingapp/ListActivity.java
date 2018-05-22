@@ -48,7 +48,7 @@ public class ListActivity extends AppCompatActivity {
     class MyTimerTask extends TimerTask {
         @Override
         public void run() {
-            mAdapter.setDataset(Utils.updateData(mAdapter.getDataset()));
+            mAdapter.setDataset(Utils.generateData());
 
             runOnUiThread(new Runnable(){
                 @Override
