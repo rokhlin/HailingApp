@@ -43,6 +43,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         this.mDataset = myDataset;
     }
 
+    public Stations[] getDataset() {
+        return mDataset;
+    }
+
+    public void setDataset(Stations[] mDataset) {
+        this.mDataset = mDataset;
+    }
 
     @NonNull
     @Override

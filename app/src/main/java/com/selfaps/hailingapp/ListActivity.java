@@ -10,13 +10,15 @@ import com.selfaps.hailingapp.model.Stations;
 import com.selfaps.hailingapp.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ListActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private MyAdapter mAdapter;
-    private Stations[] stations;
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +32,29 @@ public class ListActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        stations = Utils.generateData();
+        Stations[] stations = Utils.generateData();
         mAdapter = new MyAdapter(stations);
         mRecyclerView.setAdapter(mAdapter);
+
+        startTimer();
+}
+
+    private void startTimer() {
+        timer = new Timer();
+        MyTimerTask mTimerTask = new MyTimerTask();
+        timer.schedule(mTimerTask, 5000, 5000);
+    }
+
+    class MyTimerTask extends TimerTask {
+        @Override
+        public void run() {
+            mAdapter.setDataset(Utils.updateData(mAdapter.getDataset()));
+
+            runOnUiThread(new Runnable(){
+                @Override
+                public void run() {
+                    mAdapter.notifyDataSetChanged();
+                }});
+        }
     }
 }
