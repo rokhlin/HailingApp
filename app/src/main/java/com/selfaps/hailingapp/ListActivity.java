@@ -9,16 +9,15 @@ import com.selfaps.hailingapp.adapters.MyAdapter;
 import com.selfaps.hailingapp.model.Stations;
 import com.selfaps.hailingapp.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ListActivity extends AppCompatActivity {
-
-    private RecyclerView mRecyclerView;
-    private LinearLayoutManager mLayoutManager;
+    private static final long UPDATE_PERIOD = 5000;
     private MyAdapter mAdapter;
     private Timer timer;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +30,8 @@ public class ListActivity extends AppCompatActivity {
 
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        Stations[] stations = Utils.sort(Utils.generateData());
 
-        Stations[] stations = Utils.generateData();
         mAdapter = new MyAdapter(stations);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -42,19 +41,47 @@ public class ListActivity extends AppCompatActivity {
     private void startTimer() {
         timer = new Timer();
         MyTimerTask mTimerTask = new MyTimerTask();
-        timer.schedule(mTimerTask, 5000, 5000);
+        timer.schedule(mTimerTask, UPDATE_PERIOD, UPDATE_PERIOD);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        timer.cancel();
+        timer = null;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLayoutManager.removeAllViews();
+        mLayoutManager = null;
+        mRecyclerView = null;
+        mAdapter = null;
+    }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTimer();
     }
 
     class MyTimerTask extends TimerTask {
         @Override
         public void run() {
-            mAdapter.setDataset(Utils.generateData());
+            //Generate the new elements
+            if(mAdapter != null){
+                mAdapter.setDataset(Utils.sort(Utils.generateData()));
 
-            runOnUiThread(new Runnable(){
-                @Override
-                public void run() {
-                    mAdapter.notifyDataSetChanged();
-                }});
+                //Run update visible elements
+                runOnUiThread(new Runnable(){
+                    @Override
+                    public void run() {
+                        mAdapter.notifyDataSetChanged();
+                    }});
+            }
         }
     }
 }

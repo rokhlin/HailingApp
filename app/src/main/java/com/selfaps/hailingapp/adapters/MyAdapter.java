@@ -13,12 +13,6 @@ import com.selfaps.hailingapp.R;
 import com.selfaps.hailingapp.model.Stations;
 import com.selfaps.hailingapp.utils.Utils;
 
-import java.util.ArrayList;
-
-/**
- * Created by Ulike Anton on 22.05.2018.
- */
-
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Stations[] mDataset;
 
@@ -65,14 +59,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         final Stations station = mDataset[position];
         holder.icon.setImageResource(station.getIcon());
         holder.mCabStation.setText(station.getName());
-        holder.mETA.setText(Utils.getTime(station.getEta()));
+        holder.mETA.setText(Utils.getFormatedTime(station.getEta()));
 
         //Add listener on item tap
         holder.icon.getRootView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(),
-                        "Pushed " + station.getName(),
+                         station.getName() + v.getResources().getString(R.string.selected),
                         Toast.LENGTH_SHORT)
                         .show();
             }

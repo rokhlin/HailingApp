@@ -1,8 +1,6 @@
 package com.selfaps.hailingapp.model;
 
-/**
- * Created by Ulike Anton on 22.05.2018.
- */
+
 
 public class Stations {
    private int icon;
@@ -27,7 +25,4 @@ public class Stations {
         return eta;
     }
 
-    public void setEta(Long newValue) {
-        eta = newValue;
-    }
 }

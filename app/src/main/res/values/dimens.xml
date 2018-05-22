@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_layout_padding">12dp</dimen>
+    <dimen name="icon_edge_size">48dp</dimen>
+    <dimen name="item_elements_margins">12dp</dimen>
+    <dimen name="item_text_size">24sp</dimen>
+</resources>

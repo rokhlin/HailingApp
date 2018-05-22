@@ -4,8 +4,6 @@ import com.selfaps.hailingapp.utils.Utils;
 
 import org.junit.Test;
 
-import java.util.concurrent.TimeUnit;
-
 import static org.junit.Assert.*;
 
 /**
@@ -19,10 +17,10 @@ public class ExampleUnitTest {
 
     @Test
     public void timeConvert() throws Exception {
-        assertEquals("1h 0m", Utils.getTime(HOUR));
-        assertEquals("1h 10m", Utils.getTime(HOUR + 10*MINUTE));
-        assertEquals("50m", Utils.getTime(HOUR - 10*MINUTE));
-        assertEquals("0m", Utils.getTime(10));
+        assertEquals("1h 0m", Utils.getFormatedTime(HOUR));
+        assertEquals("1h 10m", Utils.getFormatedTime(HOUR + 10*MINUTE));
+        assertEquals("50m", Utils.getFormatedTime(HOUR - 10*MINUTE));
+        assertEquals("0m", Utils.getFormatedTime(10));
 
     }
 
